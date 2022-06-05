@@ -1,37 +1,68 @@
-## Welcome to GitHub Pages
+## Lab 5
 
-You can use the [editor on GitHub](https://github.com/liv-edi/lab5/edit/main/README.md) to maintain and preview the content for your website in Markdown files.
+In this lab we downloaded and installed Postmen, created a CIT281 collection of folders, creasted a Node.js and Fastify server application using GET that responded with JSON, created an array of students, used portman to test GET routes, added POST handling server apllication and respond with JSON, and used postman and POST request.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+Technologies used in this lab:
+- VSCode
+- Node.js
+- Fastify
+- Postman
 
-### Markdown
+The purpose of this lab was to teach us more efficent way to test routes and also practice using GET routes and POST routes.
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
 ```
+const students = [
+    {
+      id: 1,
+      last: "Last1",
+      first: "First1",
+    },
+    {
+      id: 2,
+      last: "Last2",
+      first: "First2",
+    },
+    {
+      id: 3,
+      last: "Last3",
+      first: "First3",
+    }
+  ];
 
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
+const fastify = require("fastify")();
 
-### Jekyll Themes
+fastify.get("/cit/student", (request, reply) => {
+    reply
+        .code(200)
+        .header("Content-Type", "text/html")
+        .send(`<h1> ${students[0].first} ${students[0].last} ${students[1].first} ${students[1].last} ${students[2].first} ${students[2].last}</h1>`);
+})
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/liv-edi/lab5/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+fastify.get("/cit/student/:id", (request, reply) => {
+    const {id} = request.params;
+    const {first, last} = request.body;
+    for (const object of students) {
 
-### Support or Contact
+    }
+})
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+fastify.get("*", (request, reply) => {
+    reply
+        .code(404)
+        .header("Content-Type", "text/html; charset=utf-8")
+        .send("<h1>Unsupported request or page!</h1>");
+})
+
+const listenIP = "localhost";
+const listenPort = 8080;
+
+fastify.listen(listenPort, listenIP, (err, address) => {
+    if (err) {
+      console.log(err);
+      process.exit(1);
+    }
+    console.log(`Server listening on ${address}`);
+  });
+```
+<img width="594" alt="AllStudents" src="https://user-images.githubusercontent.com/105889862/172033463-4e091197-fa34-461e-b431-a8187981181d.png">
+
