@@ -1,5 +1,7 @@
 ## Lab 5
 
+[Home](https://liv-edi.github.io/cit281/)
+
 In this lab we downloaded and installed Postmen, created a CIT281 collection of folders, creasted a Node.js and Fastify server application using GET that responded with JSON, created an array of students, used portman to test GET routes, added POST handling server apllication and respond with JSON, and used postman and POST request.
 
 Technologies used in this lab:
